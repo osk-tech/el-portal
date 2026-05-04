@@ -44,8 +44,11 @@
             "@type": "Hostel",
             "name": "Hostal El Portal",
             "description": "Hostal El Portal en Guatemala, un espacio de descanso rodeado de naturaleza con reservas directas por WhatsApp.",
-            "telephone": ["+50240917878", "+50253196848"],
-            "email": "reserva@hotelesenlanquin.com",
+            "telephone": "+50240917878",
+            "additionalContact": [
+                {"@type": "ContactPoint", "telephone": "+50253196848", "contactType": "Customer Service"},
+                {"@type": "ContactPoint", "email": "reserva@hotelesenlanquin.com"}
+            ],
             "url": "https://hotelesenlanquin.com",
             "priceRange": "$$",
             "address": {
@@ -129,6 +132,33 @@
                 decoding="async"
                 alt=""
             >
+            <img
+                class="hero-slide"
+                src="assets/front/pool.webp"
+                width="1600"
+                height="1200"
+                sizes="100vw"
+                decoding="async"
+                alt=""
+            >
+            <img
+                class="hero-slide"
+                src="assets/front/way.webp"
+                width="1600"
+                height="1200"
+                sizes="100vw"
+                decoding="async"
+                alt=""
+            >
+            <img
+                class="hero-slide"
+                src="assets/front/behind.webp"
+                width="1600"
+                height="1200"
+                sizes="100vw"
+                decoding="async"
+                alt=""
+            >
         </div>
         <div class="overlay"></div>
         <div class="hero-content">
@@ -176,7 +206,7 @@
                         <p>Cocina local con vistas al río Cahabón y un bar para cerrar el día con calma.</p>
                     </div>
                 </div>
-                <div class="service-card" style="--service-image: url('assets/front/portal2.webp');">
+                <div class="service-card" style="--service-image: url('assets/front/pool.webp');">
                     <div class="service-card-content">
                         <h3>Piscina al Aire Libre</h3>
                         <p>Además del río Cahabón a pasos del hostal, contamos con nuestra propia piscina para que te refresques cuando quieras.</p>
@@ -202,10 +232,34 @@
                 <!-- Habitación Privada -->
                 <div class="room-card room-card--featured">
                     <div class="room-image">
-                        <img src="assets/privada/privada.webp" width="1200" height="1600" loading="lazy" decoding="async"
+                        <img src="assets/privada/privfront.webp" width="1600" height="1200" loading="lazy" decoding="async"
                             sizes="(max-width: 768px) 100vw, (max-width: 992px) 50vw, 33vw"
                             alt="Habitación Privada - Hostal El Portal">
                         <span class="room-tag room-tag--gold">Privada</span>
+                        <span class="room-photo-count">7 fotos</span>
+                    </div>
+                    <div class="room-thumbs" aria-label="Fotos de Suite Privada">
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 1 de Suite Privada" data-src="assets/privada/privfront.webp">
+                            <img src="assets/privada/privfront.webp" width="300" height="225" loading="lazy" decoding="async" alt="Suite Privada, frente">
+                        </div>
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 2 de Suite Privada" data-src="assets/privada/priv1.webp">
+                            <img src="assets/privada/priv1.webp" width="300" height="225" loading="lazy" decoding="async" alt="Suite Privada, foto 1">
+                        </div>
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 3 de Suite Privada" data-src="assets/privada/priv2.webp">
+                            <img src="assets/privada/priv2.webp" width="300" height="225" loading="lazy" decoding="async" alt="Suite Privada, foto 2">
+                        </div>
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 4 de Suite Privada" data-src="assets/privada/privada.webp">
+                            <img src="assets/privada/privada.webp" width="300" height="400" loading="lazy" decoding="async" alt="Suite Privada, foto 3">
+                        </div>
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 5 de Suite Privada" data-src="assets/privada/privada2.webp">
+                            <img src="assets/privada/privada2.webp" width="300" height="400" loading="lazy" decoding="async" alt="Suite Privada, foto 4">
+                        </div>
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 6 de Suite Privada" data-src="assets/privada/privada3.webp">
+                            <img src="assets/privada/privada3.webp" width="300" height="200" loading="lazy" decoding="async" alt="Suite Privada, foto 5">
+                        </div>
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 7 de Suite Privada" data-src="assets/privada/privada4.webp">
+                            <img src="assets/privada/privada4.webp" width="300" height="200" loading="lazy" decoding="async" alt="Suite Privada, foto 6">
+                        </div>
                     </div>
                     <div class="room-info">
                         <h3>Suite Privada</h3>
@@ -217,10 +271,34 @@
                 <!-- Habitación Semi-Privada -->
                 <div class="room-card">
                     <div class="room-image">
-                        <img src="assets/semi/semi.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                        <img src="assets/semi/front.webp" width="1600" height="1200" loading="lazy" decoding="async"
                             sizes="(max-width: 768px) 100vw, (max-width: 992px) 50vw, 33vw"
                             alt="Habitación Semi-Privada - Hostal El Portal">
                         <span class="room-tag">Semi-Privada</span>
+                        <span class="room-photo-count">7 fotos</span>
+                    </div>
+                    <div class="room-thumbs" aria-label="Fotos de Semi-Privada">
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 1 de Semi-Privada" data-src="assets/semi/front.webp">
+                            <img src="assets/semi/front.webp" width="300" height="225" loading="lazy" decoding="async" alt="Semi-Privada, frente">
+                        </div>
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 2 de Semi-Privada" data-src="assets/semi/semidoble.webp">
+                            <img src="assets/semi/semidoble.webp" width="300" height="225" loading="lazy" decoding="async" alt="Semi-Privada doble">
+                        </div>
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 3 de Semi-Privada" data-src="assets/semi/semipriv.webp">
+                            <img src="assets/semi/semipriv.webp" width="300" height="225" loading="lazy" decoding="async" alt="Semi-Privada interior">
+                        </div>
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 4 de Semi-Privada" data-src="assets/semi/semipriv1.webp">
+                            <img src="assets/semi/semipriv1.webp" width="300" height="225" loading="lazy" decoding="async" alt="Semi-Privada, foto 1">
+                        </div>
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 5 de Semi-Privada" data-src="assets/semi/semipriv2.webp">
+                            <img src="assets/semi/semipriv2.webp" width="300" height="225" loading="lazy" decoding="async" alt="Semi-Privada, foto 2">
+                        </div>
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 6 de Semi-Privada" data-src="assets/semi/semi.webp">
+                            <img src="assets/semi/semi.webp" width="300" height="225" loading="lazy" decoding="async" alt="Semi-Privada, foto 3">
+                        </div>
+                        <div class="room-thumb" role="button" tabindex="0" aria-label="Ver foto 7 de Semi-Privada" data-src="assets/semi/semi3.webp">
+                            <img src="assets/semi/semi3.webp" width="300" height="200" loading="lazy" decoding="async" alt="Semi-Privada, foto 4">
+                        </div>
                     </div>
                     <div class="room-info">
                         <h3>Semi-Privada</h3>
@@ -236,6 +314,12 @@
                             sizes="(max-width: 768px) 100vw, (max-width: 992px) 50vw, 33vw"
                             alt="Habitación Dormitorio - Hostal El Portal">
                         <span class="room-tag">Dormitorio</span>
+                        <span class="room-photo-count">1 foto</span>
+                    </div>
+                    <div class="room-thumbs" aria-label="Fotos de Dormitorio">
+                        <div class="room-thumb room-thumb--single" role="button" tabindex="0" aria-label="Ver foto del Dormitorio" data-src="assets/dorm/dormport1.webp">
+                            <img src="assets/dorm/dormport1.webp" width="300" height="400" loading="lazy" decoding="async" alt="Dormitorio, foto 1">
+                        </div>
                     </div>
                     <div class="room-info">
                         <h3>Dormitorio</h3>
@@ -277,6 +361,30 @@
                         <div class="gallery-overlay"><span>Exteriores</span></div>
                     </div>
                     <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Suite Privada">
+                        <img src="assets/privada/privfront.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Suite Privada - Hostal El Portal">
+                        <div class="gallery-overlay"><span>Suite Privada</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Suite Privada">
+                        <img src="assets/privada/priv1.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Suite Privada interior">
+                        <div class="gallery-overlay"><span>Suite Privada</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Suite Privada">
+                        <img src="assets/privada/priv2.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Suite Privada detalle">
+                        <div class="gallery-overlay"><span>Suite Privada</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Suite Privada">
+                        <img src="assets/privada/privada.webp" width="1200" height="1600" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Suite Privada - Hostal El Portal">
+                        <div class="gallery-overlay"><span>Suite Privada</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Suite Privada">
                         <img src="assets/privada/privada2.webp" width="1200" height="1600" loading="lazy" decoding="async"
                             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             alt="Suite Privada">
@@ -287,6 +395,42 @@
                             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             alt="Suite Privada detalle">
                         <div class="gallery-overlay"><span>Detalles</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Semi-Privada">
+                        <img src="assets/semi/front.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Semi-Privada - Hostal El Portal">
+                        <div class="gallery-overlay"><span>Semi-Privada</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Semi-Privada Doble">
+                        <img src="assets/semi/semidoble.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Semi-Privada doble - Hostal El Portal">
+                        <div class="gallery-overlay"><span>Semi-Privada Doble</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Semi-Privada">
+                        <img src="assets/semi/semipriv.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Semi-Privada interior">
+                        <div class="gallery-overlay"><span>Semi-Privada</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Semi-Privada">
+                        <img src="assets/semi/semipriv1.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Semi-Privada, foto 1">
+                        <div class="gallery-overlay"><span>Semi-Privada</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Semi-Privada">
+                        <img src="assets/semi/semipriv2.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Semi-Privada, foto 2">
+                        <div class="gallery-overlay"><span>Semi-Privada</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Semi-Privada">
+                        <img src="assets/semi/semi.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Habitación Semi-Privada - Hostal El Portal">
+                        <div class="gallery-overlay"><span>Semi-Privada</span></div>
                     </div>
                     <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Semi-Privada">
                         <img src="assets/semi/semi3.webp" width="1600" height="1200" loading="lazy" decoding="async"
@@ -305,6 +449,30 @@
                             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             alt="Dormitorio">
                         <div class="gallery-overlay"><span>Dormitorio</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Piscina">
+                        <img src="assets/front/pool.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Piscina al aire libre - Hostal El Portal">
+                        <div class="gallery-overlay"><span>Piscina</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Piscina">
+                        <img src="assets/front/poolup.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Vista aérea de la piscina - Hostal El Portal">
+                        <div class="gallery-overlay"><span>Piscina</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Sendero">
+                        <img src="assets/front/way.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Sendero natural - Hostal El Portal">
+                        <div class="gallery-overlay"><span>Sendero</span></div>
+                    </div>
+                    <div class="gallery-item carousel-slide" role="button" tabindex="0" aria-controls="lightbox" aria-label="Abrir imagen: Jardines">
+                        <img src="assets/front/behind.webp" width="1600" height="1200" loading="lazy" decoding="async"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt="Zona trasera y habitaciones - Hostal El Portal">
+                        <div class="gallery-overlay"><span>Jardines</span></div>
                     </div>
                 </div>
             </div>
@@ -339,7 +507,7 @@
                         <span class="contact-icon" aria-hidden="true">✉️</span>
                         <div>
                             <strong>Email</strong>
-                            <p><a href="mailto:reserva@hotelesenlanquin.com" class="contact-link">reserva@hotelesenlanquin.com</a></p>
+                            <p><a href="mailto:admonelportaldechampey@gmail.com" class="contact-link">admonelportaldechampey@gmail.com</a></p>
                         </div>
                     </div>
                 </div>
@@ -369,7 +537,7 @@
             <div class="footer-contact">
                 <p><a href="#" class="footer-link" data-whatsapp="general">+502 4091-7878 — Oficina</a></p>
                 <p><a href="#" class="footer-link" data-whatsapp="general-alt">+502 5319-6848 — Celular</a></p>
-                <p><a href="mailto:reserva@hotelesenlanquin.com" class="footer-link">reserva@hotelesenlanquin.com</a></p>
+                <p><a href="mailto:admonelportaldechampey@gmail.com" class="footer-link">admonelportaldechampey@gmail.com</a></p>
             </div>
         </div>
         <div class="footer-bottom">

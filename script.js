@@ -112,14 +112,14 @@ if (menuToggle && navLinks && navBackdrop) {
             isPlaying = false;
             if (autoplayBtn) {
                 autoplayBtn.setAttribute('aria-label', 'Reproducir carrusel');
-                autoplayBtn.setAttribute('aria-pressed', 'true');
+                autoplayBtn.setAttribute('aria-pressed', 'false');
             }
         } else {
             isPlaying = true;
             startAutoplay();
             if (autoplayBtn) {
                 autoplayBtn.setAttribute('aria-label', 'Pausar carrusel');
-                autoplayBtn.setAttribute('aria-pressed', 'false');
+                autoplayBtn.setAttribute('aria-pressed', 'true');
             }
         }
     }
@@ -204,6 +204,7 @@ if (menuToggle && navLinks && navBackdrop) {
         { passive: true }
     );
     track.addEventListener('touchend', (event) => {
+        if (!event.changedTouches || event.changedTouches.length === 0) return;
         const diff = touchStartX - event.changedTouches[0].clientX;
         if (Math.abs(diff) > 50) {
             goTo(current + (diff > 0 ? 1 : -1));
@@ -358,6 +359,35 @@ document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowRight') {
         lbNavigate(1);
     }
+});
+
+/* ── Room Thumbnails → Lightbox ── */
+document.querySelectorAll('.room-thumb').forEach((thumb) => {
+    function openRoomPhoto() {
+        const src = thumb.dataset.src;
+        const idx = galleryItems.findIndex((item) => {
+            const img = item.querySelector('img');
+            return img && img.getAttribute('src') === src;
+        });
+        if (idx !== -1) {
+            openLightbox(idx);
+        } else {
+            lbCurrent = 0;
+            lbImg.src = src;
+            lbImg.alt = thumb.querySelector('img').alt;
+            lbCap.textContent = '';
+            lightbox.classList.add('is-open');
+            document.body.classList.add('scroll-lock');
+            if (lightboxCloseBtn) lightboxCloseBtn.focus();
+        }
+    }
+    thumb.addEventListener('click', openRoomPhoto);
+    thumb.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openRoomPhoto();
+        }
+    });
 });
 
 /* ── Reveal on Scroll ── */
