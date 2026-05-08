@@ -20,6 +20,32 @@ function buildWaLink(key) {
     return `${WA_CONFIG.base}/${number}?text=${encodeURIComponent(msg)}`;
 }
 
+/* ── Orientación de imágenes responsive ── */
+(function () {
+    const responsiveImages = document.querySelectorAll('img[width][height]');
+
+    responsiveImages.forEach((img) => {
+        const width = Number(img.getAttribute('width'));
+        const height = Number(img.getAttribute('height'));
+
+        if (!width || !height) {
+            return;
+        }
+
+        if (height > width) {
+            img.dataset.orientation = 'portrait';
+            return;
+        }
+
+        if (width > height) {
+            img.dataset.orientation = 'landscape';
+            return;
+        }
+
+        img.dataset.orientation = 'square';
+    });
+})();
+
 document.querySelectorAll('[data-whatsapp]').forEach((el) => {
     el.setAttribute('href', buildWaLink(el.dataset.whatsapp));
 });
