@@ -268,7 +268,7 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(46, 64, 53, 0.4), rgba(46, 64, 53, 0.8));
+    background: linear-gradient(rgba(46, 64, 53, 0.2), rgba(46, 64, 53, 0.55));
     z-index: 1;
 }
 
@@ -683,6 +683,20 @@ p {
     font-size: 1.5rem;
     color: var(--wood-dark);
     margin-bottom: 12px;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.room-price {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--forest-dark);
+    background: rgba(46, 64, 53, 0.08);
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
 }
 
 .room-info p {
@@ -1244,7 +1258,7 @@ footer {
     }
 
     .logo-img {
-        height: 60px;
+        height: 80px;
     }
 
     .hero-content {
@@ -1398,7 +1412,7 @@ footer {
     }
 
     .logo-img {
-        height: 52px;
+        height: 68px;
     }
 
     .nav-links {
