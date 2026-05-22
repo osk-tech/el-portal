@@ -165,6 +165,16 @@ if (menuToggle && navLinks && navBackdrop) {
         }
     });
 
+    if (autoplayBtn) {
+        if (isPlaying) {
+            autoplayBtn.setAttribute('aria-label', 'Pausar carrusel');
+            autoplayBtn.setAttribute('aria-pressed', 'true');
+        } else {
+            autoplayBtn.setAttribute('aria-label', 'Reproducir carrusel');
+            autoplayBtn.setAttribute('aria-pressed', 'false');
+        }
+    }
+
     if (isPlaying) {
         startAutoplay();
     }
@@ -276,20 +286,21 @@ function syncLightbox(index) {
     lbCap.textContent = caption ? caption.textContent : '';
 }
 
+const prefetchedSrcs = new Set();
+
 function preloadAdjacent(index) {
     const prevIndex = (index - 1 + galleryItems.length) % galleryItems.length;
     const nextIndex = (index + 1) % galleryItems.length;
     [prevIndex, nextIndex].forEach((i) => {
         if (i !== index) {
             const img = galleryItems[i].querySelector('img');
-            if (img) {
+            if (img && !prefetchedSrcs.has(img.src)) {
+                prefetchedSrcs.add(img.src);
                 const link = document.createElement('link');
                 link.rel = 'prefetch';
                 link.as = 'image';
                 link.href = img.src;
-                if (!document.querySelector(`link[href="${img.src}"]`)) {
-                    document.head.appendChild(link);
-                }
+                document.head.appendChild(link);
             }
         }
     });
@@ -398,6 +409,9 @@ document.querySelectorAll('.room-thumb').forEach((thumb) => {
         if (idx !== -1) {
             openLightbox(idx);
         } else {
+            if (!lightbox.classList.contains('is-open')) {
+                lastFocusedElement = document.activeElement;
+            }
             lbCurrent = 0;
             lbImg.src = src;
             lbImg.alt = thumb.querySelector('img').alt;

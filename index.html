@@ -11,6 +11,7 @@
     <meta name="description"
         content="Hostal El Portal en Guatemala: naturaleza, descanso y una experiencia acogedora con reservas directas por WhatsApp.">
     <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://www.elportalsemuc.com/">
     <meta name="theme-color" content="#2E4035">
     <meta property="og:locale" content="es_GT">
     <meta property="og:type" content="website">
@@ -18,13 +19,13 @@
     <meta property="og:title" content="Hostal El Portal | Naturaleza, descanso y reservas por WhatsApp">
     <meta property="og:description"
         content="Descubre Hostal El Portal: una escapada entre naturaleza, comodidad y atención directa por WhatsApp.">
-    <meta property="og:image" content="assets/front/portal1.webp">
+    <meta property="og:image" content="https://www.elportalsemuc.com/assets/front/portal1.webp">
     <meta property="og:image:alt" content="Vista de Hostal El Portal rodeado de naturaleza">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Hostal El Portal | Naturaleza, descanso y reservas por WhatsApp">
     <meta name="twitter:description"
         content="Una experiencia acogedora entre naturaleza, descanso y reservas directas por WhatsApp.">
-    <meta name="twitter:image" content="assets/front/portal1.webp">
+    <meta name="twitter:image" content="https://www.elportalsemuc.com/assets/front/portal1.webp">
     <link rel="preload" as="image" href="assets/front/portal1.webp" fetchpriority="high">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,6 +39,7 @@
             rel="stylesheet">
     </noscript>
     <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" href="assets/branding/logoportal.png">
     <link rel="icon" href="assets/ico/logoportal.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/branding/logoportal.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/branding/logoportal.png">
@@ -48,11 +50,11 @@
             "name": "Hostal El Portal",
             "description": "Hostal El Portal en Guatemala, un espacio de descanso rodeado de naturaleza con reservas directas por WhatsApp.",
             "telephone": "+50240917878",
-            "additionalContact": [
-                {"@type": "ContactPoint", "telephone": "+50253196848", "contactType": "Customer Service"},
-                {"@type": "ContactPoint", "email": "reserva@hotelesenlanquin.com"}
+            "contactPoint": [
+                {"@type": "ContactPoint", "telephone": "+50253196848", "contactType": "customer service"},
+                {"@type": "ContactPoint", "email": "reserva@hotelesenlanquin.com", "contactType": "customer service"}
             ],
-            "url": "https://hotelesenlanquin.com",
+            "url": "https://www.elportalsemuc.com",
             "priceRange": "$$",
             "address": {
                 "@type": "PostalAddress",
@@ -66,13 +68,12 @@
                 "longitude": -89.95451
             },
             "areaServed": "Guatemala",
-            "image": "assets/front/marie.webp",
+            "image": "https://www.elportalsemuc.com/assets/front/marie.webp",
             "amenityFeature": [
                 { "@type": "LocationFeatureSpecification", "name": "Restaurante & Bar", "value": true },
                 { "@type": "LocationFeatureSpecification", "name": "Piscina al Aire Libre", "value": true },
                 { "@type": "LocationFeatureSpecification", "name": "Tours de Aventura", "value": true }
-            ],
-            "sameAs": []
+            ]
         }
     </script>
 </head>
@@ -80,7 +81,7 @@
 <body>
 
     <!--Navegacion-->
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Navegación principal">
         <div class="container nav-container">
             <div class="logo"><a href="#inicio" aria-label="Ir al inicio"><img src="assets/branding/logoportal.webp" alt="Hostal El Portal" class="logo-img" width="593" height="503" loading="eager" fetchpriority="high" decoding="async"></a></div>
             <ul class="nav-links" id="site-menu">
@@ -108,11 +109,6 @@
                 src="assets/front/portal1.webp"
                 width="1600"
                 height="1200"
-                sizes="100vw"
-                srcset="
-                    assets/front/portal1.webp 1600w,
-                    assets/front/portal1.webp 800w
-                "
                 fetchpriority="high"
                 decoding="async"
                 alt=""
@@ -122,7 +118,7 @@
                 src="assets/front/marie5.webp"
                 width="1500"
                 height="1599"
-                sizes="100vw"
+                loading="lazy"
                 decoding="async"
                 alt=""
             >
@@ -131,7 +127,7 @@
                 src="assets/front/portal3.webp"
                 width="1200"
                 height="1600"
-                sizes="100vw"
+                loading="lazy"
                 decoding="async"
                 alt=""
             >
@@ -140,7 +136,7 @@
                 src="assets/front/tequila-sunrise.webp"
                 width="1600"
                 height="1200"
-                sizes="100vw"
+                loading="lazy"
                 decoding="async"
                 alt=""
             >
@@ -149,7 +145,7 @@
                 src="assets/front/pool.webp"
                 width="1600"
                 height="1200"
-                sizes="100vw"
+                loading="lazy"
                 decoding="async"
                 alt=""
             >
@@ -158,16 +154,16 @@
                 src="assets/front/marie.webp"
                 width="1600"
                 height="1200"
-                sizes="100vw"
+                loading="lazy"
                 decoding="async"
                 alt=""
-                >
+            >
             <img
                 class="hero-slide"
                 src="assets/front/way.webp"
                 width="1600"
                 height="1200"
-                sizes="100vw"
+                loading="lazy"
                 decoding="async"
                 alt=""
             >
@@ -176,7 +172,7 @@
                 src="assets/front/behind.webp"
                 width="1600"
                 height="1200"
-                sizes="100vw"
+                loading="lazy"
                 decoding="async"
                 alt=""
             >
