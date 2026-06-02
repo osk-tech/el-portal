@@ -1577,3 +1577,59 @@ img {
     min-height: auto !important;
     max-height: none !important;
 }
+/* =========================================
+   ¡CORRECCIÓN DE EMERGENCIA - SIN CORTES!
+   ========================================= */
+
+/* Esto fuerza a que TODAS las imágenes del carrusel se vean completas */
+.carousel-slide,
+.carousel-slide *,
+.carousel-slide img {
+    overflow: visible !important;
+}
+
+.carousel-slide img {
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: 400px !important;
+    min-height: auto !important;
+    object-fit: contain !important;
+    aspect-ratio: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+}
+
+/* En móvil */
+@media (max-width: 768px) {
+    .carousel-slide img {
+        max-height: 320px !important;
+        width: auto !important;
+        max-width: 100% !important;
+    }
+}
+
+/* Para imágenes portrait */
+.carousel-slide img[data-orientation="portrait"] {
+    max-height: 450px !important;
+    width: auto !important;
+}
+
+@media (max-width: 768px) {
+    .carousel-slide img[data-orientation="portrait"] {
+        max-height: 380px !important;
+    }
+}
+
+/* Elimina cualquier contenedor que esté cortando */
+.carousel-track-container {
+    overflow: visible !important;
+}
+
+.carousel-track {
+    align-items: center !important;
+}
