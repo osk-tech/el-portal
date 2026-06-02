@@ -787,7 +787,7 @@ p {
 }
 
 /* =========================================
-   Galería — Carrusel (CORREGIDO - SIN CORTES)
+   Galería — Carrusel (SIN CORTES - VERSIÓN DEFINITIVA)
    ========================================= */
 .gallery {
     padding: var(--section-space) 0;
@@ -810,7 +810,7 @@ p {
 }
 
 .carousel-track-container {
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
     touch-action: pan-y pinch-zoom;
 }
@@ -822,22 +822,37 @@ p {
     will-change: transform;
 }
 
+/* ✅ Contenedor que respeta la imagen completa */
 .carousel-slide {
     flex: 0 0 calc((100% - (var(--carousel-gap) * 2)) / 3);
     position: relative;
-    overflow: hidden;
     cursor: pointer;
     border-radius: 18px;
     background-color: #ddd7cb;
     box-shadow: 0 12px 30px rgba(44, 44, 44, 0.08);
+    overflow: hidden;
 }
 
-/* ✅ CORREGIDO: La imagen NO se corta */
+/* ✅ La imagen se muestra COMPLETA, sin recortes */
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.5s ease;
+    background-color: #E7E1D4;
+}
+
+/* Si quieres que las imágenes llenen más espacio pero sin cortarse */
 .carousel-slide img {
     width: 100%;
     height: auto;
+    min-height: 280px;
+    max-height: 350px;
+    object-fit: contain;
     display: block;
     transition: transform 0.5s ease;
+    background-color: #E7E1D4;
 }
 
 .carousel-slide:focus-visible {
@@ -846,7 +861,7 @@ p {
 }
 
 .carousel-slide:hover img {
-    transform: scale(1.06);
+    transform: scale(1.03);
 }
 
 .gallery-overlay {
@@ -931,7 +946,9 @@ p {
     transform: scale(1.35);
 }
 
-/* ✅ RESPONSIVE: En móviles una imagen por slide, SIN CORTES */
+/* =========================================
+   RESPONSIVE - SIN CORTES EN MÓVIL
+   ========================================= */
 @media (max-width: 992px) {
     .carousel-slide {
         flex: 0 0 calc((100% - var(--carousel-gap)) / 2);
@@ -943,12 +960,15 @@ p {
         flex: 0 0 100%;
     }
     
+    /* ✅ En móvil: imagen COMPLETA, sin cortes */
     .carousel-slide img {
         width: 100%;
         height: auto;
+        min-height: 240px;
         max-height: 380px;
         object-fit: contain;
         background-color: #E7E1D4;
+        padding: 12px;
     }
     
     .carousel-wrapper {
@@ -977,7 +997,9 @@ p {
 
 @media (max-width: 576px) {
     .carousel-slide img {
+        min-height: 200px;
         max-height: 320px;
+        padding: 8px;
     }
     
     .carousel-btn {
@@ -985,32 +1007,20 @@ p {
         height: 40px;
         font-size: 1.8rem;
     }
-    
-    .gallery-overlay {
-        padding: 18px;
-    }
 }
 
-/* ✅ Para imágenes portrait (verticales) */
+/* ✅ Soporte para imágenes portrait (verticales) */
 .carousel-slide img[data-orientation="portrait"] {
     max-height: 450px;
-    object-fit: contain;
-    background-color: #E7E1D4;
-    padding: 12px;
+    width: auto;
+    margin: 0 auto;
 }
 
 @media (max-width: 768px) {
     .carousel-slide img[data-orientation="portrait"] {
-        max-height: 420px;
-        padding: 8px;
+        max-height: 400px;
+        width: auto;
     }
-}
-
-/* ✅ Para imágenes que son muy anchas */
-.carousel-slide img[data-orientation="landscape"] {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
 }
 
 /* =========================================
