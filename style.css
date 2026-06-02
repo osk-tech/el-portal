@@ -787,7 +787,7 @@ p {
 }
 
 /* =========================================
-   Galería — Carrusel
+   Galería — Carrusel (CORREGIDO - SIN CORTES)
    ========================================= */
 .gallery {
     padding: var(--section-space) 0;
@@ -830,14 +830,12 @@ p {
     border-radius: 18px;
     background-color: #ddd7cb;
     box-shadow: 0 12px 30px rgba(44, 44, 44, 0.08);
-    contain: layout paint;
 }
 
+/* ✅ CORREGIDO: La imagen NO se corta */
 .carousel-slide img {
     width: 100%;
-    aspect-ratio: 4 / 3;
     height: auto;
-    object-fit: cover;
     display: block;
     transition: transform 0.5s ease;
 }
@@ -860,6 +858,7 @@ p {
     padding: 24px;
     opacity: 1;
     transition: background 0.4s ease;
+    pointer-events: none;
 }
 
 .carousel-slide:hover .gallery-overlay {
@@ -932,15 +931,86 @@ p {
     transform: scale(1.35);
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .hero-slide,
-    .carousel-track,
-    .carousel-slide img,
-    .gallery-overlay,
-    .lightbox-content img,
-    .reveal {
-        transition: none;
+/* ✅ RESPONSIVE: En móviles una imagen por slide, SIN CORTES */
+@media (max-width: 992px) {
+    .carousel-slide {
+        flex: 0 0 calc((100% - var(--carousel-gap)) / 2);
     }
+}
+
+@media (max-width: 768px) {
+    .carousel-slide {
+        flex: 0 0 100%;
+    }
+    
+    .carousel-slide img {
+        width: 100%;
+        height: auto;
+        max-height: 380px;
+        object-fit: contain;
+        background-color: #E7E1D4;
+    }
+    
+    .carousel-wrapper {
+        --carousel-gap: 12px;
+        padding: 0 18px;
+    }
+    
+    .carousel-btn {
+        width: 46px;
+        height: 46px;
+        font-size: 2.2rem;
+    }
+    
+    .carousel-btn--prev {
+        left: 2px;
+    }
+    
+    .carousel-btn--next {
+        right: 2px;
+    }
+    
+    .gallery-overlay {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-slide img {
+        max-height: 320px;
+    }
+    
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.8rem;
+    }
+    
+    .gallery-overlay {
+        padding: 18px;
+    }
+}
+
+/* ✅ Para imágenes portrait (verticales) */
+.carousel-slide img[data-orientation="portrait"] {
+    max-height: 450px;
+    object-fit: contain;
+    background-color: #E7E1D4;
+    padding: 12px;
+}
+
+@media (max-width: 768px) {
+    .carousel-slide img[data-orientation="portrait"] {
+        max-height: 420px;
+        padding: 8px;
+    }
+}
+
+/* ✅ Para imágenes que son muy anchas */
+.carousel-slide img[data-orientation="landscape"] {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 /* =========================================
