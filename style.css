@@ -1,6 +1,6 @@
 /* =========================================
    Estilos Base: El Portal (Rústico & Lujo)
-   Versión: 3.0 - CORREGIDA (Sin espacio blanco, sin cortes)
+   Versión: 2.0 - Corregida (Sin cortes de imágenes)
    ========================================= */
 
 :root {
@@ -22,19 +22,12 @@
 }
 
 /* =========================================
-   Reseteo Básico y Layout - CORREGIDO
+   Reseteo Básico y Layout
    ========================================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-/* ✅ FIX: Elimina el scroll horizontal y espacio blanco */
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-    position: relative;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -49,8 +42,6 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
   overflow-x: hidden;
-  width: 100%;
-  position: relative;
 }
 
 img {
@@ -102,8 +93,6 @@ p {
     align-items: center;
     gap: 16px;
     padding: 0 4px;
-    max-width: 100%;
-    overflow-x: visible;
 }
 
 .logo {
@@ -240,7 +229,7 @@ p {
 }
 
 /* =========================================
-   Hero Section - CORREGIDO (Sin desborde)
+   Hero Section
    ========================================= */
 .hero {
     min-height: 100vh;
@@ -252,15 +241,11 @@ p {
     justify-content: center;
     text-align: center;
     overflow: hidden;
-    width: 100%;
-    max-width: 100%;
 }
 
 .hero-media {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
 }
 
 .hero-slide {
@@ -297,7 +282,6 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
 }
 
 .hero-kicker {
@@ -443,8 +427,6 @@ p {
    ========================================= */
 .experience {
     padding: var(--section-space) 0;
-    width: 100%;
-    overflow-x: hidden;
 }
 
 .experience-grid {
@@ -529,8 +511,6 @@ p {
 .services {
     padding: var(--section-space) 0;
     background-color: #F4F3EE;
-    width: 100%;
-    overflow-x: hidden;
 }
 
 .services h2 {
@@ -632,8 +612,6 @@ p {
 .rooms {
     padding: var(--section-space) 0;
     background-color: var(--bg-color);
-    width: 100%;
-    overflow-x: hidden;
 }
 
 .rooms-grid {
@@ -811,13 +789,11 @@ p {
 }
 
 /* =========================================
-   Galería — Carrusel (CORREGIDO - SIN CORTES Y SIN ESPACIO BLANCO)
+   Galería — Carrusel (CORREGIDO - SIN CORTES)
    ========================================= */
 .gallery {
     padding: var(--section-space) 0;
     background-color: #F4F3EE;
-    width: 100%;
-    overflow-x: hidden;
 }
 
 .gallery .section-title,
@@ -833,7 +809,6 @@ p {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 clamp(20px, 5vw, 72px);
-    width: 100%;
 }
 
 .carousel-track-container {
@@ -849,6 +824,7 @@ p {
     will-change: transform;
 }
 
+/* Contenedor que NO corta la imagen */
 .carousel-slide {
     flex: 0 0 calc((100% - (var(--carousel-gap) * 2)) / 3);
     position: relative;
@@ -859,6 +835,7 @@ p {
     overflow: hidden;
 }
 
+/* ✅ CORREGIDO: La imagen NO se corta NUNCA */
 .carousel-slide img {
     width: 100%;
     height: auto;
@@ -960,7 +937,7 @@ p {
 }
 
 /* =========================================
-   RESPONSIVE GALERÍA - CORREGIDO
+   RESPONSIVE GALERÍA - SIN CORTES EN MÓVIL
    ========================================= */
 @media (max-width: 992px) {
     .carousel-slide {
@@ -973,9 +950,12 @@ p {
         flex: 0 0 100%;
     }
     
+    /* ✅ En móvil: imagen COMPLETA, sin recortes */
     .carousel-slide img {
         width: 100%;
         height: auto;
+        min-height: auto;
+        max-height: none;
         object-fit: contain;
         background-color: #E7E1D4;
     }
@@ -1020,7 +1000,7 @@ p {
     }
 }
 
-/* Soporte para imágenes portrait */
+/* Soporte para imágenes portrait (verticales) - se muestran completas */
 .carousel-slide img[data-orientation="portrait"] {
     width: auto;
     max-width: 100%;
@@ -1041,8 +1021,6 @@ p {
 .contact {
     padding: var(--section-space) 0;
     background-color: var(--bg-color);
-    width: 100%;
-    overflow-x: hidden;
 }
 
 .contact-grid {
@@ -1274,8 +1252,6 @@ footer {
     background-color: var(--forest-dark);
     color: var(--bg-color);
     padding: 60px 0 20px;
-    width: 100%;
-    overflow-x: hidden;
 }
 
 .footer-content {
@@ -1318,7 +1294,7 @@ footer {
 }
 
 /* =========================================
-   Responsive Design General - CORREGIDO (Sin espacio blanco)
+   Responsive Design General
    ========================================= */
 @media (max-width: 992px) {
     .experience-grid {
@@ -1582,32 +1558,62 @@ footer {
 }
 
 /* =========================================
-   FIX FINAL: Elimina cualquier espacio blanco residual
+   Utilidades adicionales
    ========================================= */
-body {
-    overflow-x: hidden !important;
-    width: 100% !important;
-    position: relative !important;
+
+/* =========================================
+   ¡CORRECCIÓN DE EMERGENCIA - SIN CORTES!
+   ========================================= */
+
+/* Esto fuerza a que TODAS las imágenes del carrusel se vean completas */
+.carousel-slide,
+.carousel-slide *,
+.carousel-slide img {
+    overflow: visible !important;
 }
 
-.container, 
-.hero, 
-.gallery, 
-.services, 
-.rooms, 
-.contact, 
-footer {
-    overflow-x: hidden !important;
-}
-
-.carousel-wrapper,
-.carousel-track-container,
-.carousel-track {
-    max-width: 100% !important;
-    overflow-x: hidden !important;
-}
-
-img, video, iframe {
+.carousel-slide img {
+    width: auto !important;
     max-width: 100% !important;
     height: auto !important;
+    max-height: 400px !important;
+    min-height: auto !important;
+    object-fit: contain !important;
+    aspect-ratio: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+}
+
+/* En móvil */
+@media (max-width: 768px) {
+    .carousel-slide img {
+        max-height: 320px !important;
+        width: auto !important;
+        max-width: 100% !important;
+    }
+}
+
+/* Para imágenes portrait */
+.carousel-slide img[data-orientation="portrait"] {
+    max-height: 450px !important;
+    width: auto !important;
+}
+
+@media (max-width: 768px) {
+    .carousel-slide img[data-orientation="portrait"] {
+        max-height: 380px !important;
+    }
+}
+
+/* Elimina cualquier contenedor que esté cortando */
+.carousel-track-container {
+    overflow: visible !important;
+}
+
+.carousel-track {
+    align-items: center !important;
 }
