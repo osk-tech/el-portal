@@ -180,90 +180,221 @@ if (menuToggle && navLinks && navBackdrop) {
     }
 })();
 
-/* ── Carrusel de Galería ── */
+/* ── Carrusel de Galería - CORREGIDO (Muestra TODAS las imágenes) ── */
 (function () {
     const track = document.querySelector('.carousel-track');
     const slides = Array.from(document.querySelectorAll('.carousel-slide'));
     const btnPrev = document.querySelector('.carousel-btn--prev');
     const btnNext = document.querySelector('.carousel-btn--next');
     const dotsWrap = document.querySelector('.carousel-dots');
+    const trackContainer = document.querySelector('.carousel-track-container');
 
     if (!track || !btnPrev || !btnNext || !dotsWrap || slides.length === 0) {
+        console.warn('Carrusel: no se encontraron elementos necesarios');
         return;
     }
 
     let perView = getPerView();
     let current = 0;
-    const total = slides.length;
+    let slideWidth = 0;
+    let gap = 0;
+    let autoPlayInterval = null;
+    let isAutoPlaying = true;
 
     function getPerView() {
-        return window.innerWidth <= 768 ? 1 : window.innerWidth <= 1024 ? 2 : 3;
+        const width = window.innerWidth;
+        if (width <= 768) return 1;
+        if (width <= 992) return 2;
+        return 3;
+    }
+
+    function calculateDimensions() {
+        const containerWidth = trackContainer ? trackContainer.clientWidth : window.innerWidth - 100;
+        const computedStyle = getComputedStyle(track);
+        gap = parseFloat(computedStyle.gap) || 0;
+        
+        slideWidth = (containerWidth - (gap * (perView - 1))) / perView;
+        
+        // Aplicar ancho a cada slide
+        slides.forEach(slide => {
+            slide.style.flex = `0 0 ${slideWidth}px`;
+            slide.style.minWidth = `${slideWidth}px`;
+        });
+        
+        return slideWidth;
     }
 
     function buildDots() {
+        if (!dotsWrap) return;
+        
         dotsWrap.innerHTML = '';
-        const count = total - perView + 1;
-
-        for (let i = 0; i < count; i += 1) {
-            const btn = document.createElement('button');
-            btn.className = `carousel-dot${i === current ? ' active' : ''}`;
-            btn.setAttribute('aria-label', `Ir a imagen ${i + 1}`);
-            btn.addEventListener('click', () => goTo(i));
-            dotsWrap.appendChild(btn);
+        // El número de dots es el total de slides (para poder ir a cada uno individualmente)
+        const totalDots = slides.length;
+        
+        for (let i = 0; i < totalDots; i++) {
+            const dot = document.createElement('button');
+            dot.classList.add('carousel-dot');
+            if (i === current) dot.classList.add('active');
+            dot.setAttribute('aria-label', `Ir a imagen ${i + 1}`);
+            dot.addEventListener('click', () => {
+                goTo(i);
+                resetAutoPlay();
+            });
+            dotsWrap.appendChild(dot);
         }
     }
 
     function updateDots() {
-        document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+        const dots = document.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === current);
         });
     }
 
     function goTo(index) {
-        const maxIndex = total - perView;
-        current = Math.max(0, Math.min(index, maxIndex));
-        const gap = parseFloat(getComputedStyle(track).gap || 0);
-        const slideWidth = slides[0].getBoundingClientRect().width + gap;
-        track.style.transform = `translate3d(-${current * slideWidth}px, 0, 0)`;
+        if (!track || slides.length === 0) return;
+        
+        // Limitar índice
+        const maxIndex = slides.length - perView;
+        if (maxIndex <= 0) {
+            current = 0;
+        } else {
+            current = Math.max(0, Math.min(index, maxIndex));
+        }
+        
+        // Calcular desplazamiento
+        const translateX = -(current * (slideWidth + gap));
+        track.style.transform = `translate3d(${translateX}px, 0, 0)`;
+        
         updateDots();
+        updateButtons();
     }
 
-    btnPrev.addEventListener('click', () => goTo(current - 1));
-    btnNext.addEventListener('click', () => goTo(current + 1));
+    function updateButtons() {
+        const maxIndex = slides.length - perView;
+        
+        if (btnPrev) {
+            btnPrev.disabled = current === 0;
+            btnPrev.style.opacity = current === 0 ? '0.5' : '1';
+            btnPrev.style.cursor = current === 0 ? 'not-allowed' : 'pointer';
+        }
+        
+        if (btnNext) {
+            btnNext.disabled = current >= maxIndex;
+            btnNext.style.opacity = current >= maxIndex ? '0.5' : '1';
+            btnNext.style.cursor = current >= maxIndex ? 'not-allowed' : 'pointer';
+        }
+    }
 
+    function nextSlide() {
+        const maxIndex = slides.length - perView;
+        if (current < maxIndex) {
+            goTo(current + 1);
+        } else {
+            goTo(0); // Volver al inicio (infinito)
+        }
+        resetAutoPlay();
+    }
+
+    function prevSlide() {
+        if (current > 0) {
+            goTo(current - 1);
+        } else {
+            goTo(slides.length - perView); // Ir al final
+        }
+        resetAutoPlay();
+    }
+
+    function startAutoPlay() {
+        if (autoPlayInterval) clearInterval(autoPlayInterval);
+        autoPlayInterval = setInterval(() => {
+            if (isAutoPlaying) {
+                nextSlide();
+            }
+        }, 5000);
+    }
+
+    function stopAutoPlay() {
+        if (autoPlayInterval) {
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = null;
+        }
+    }
+
+    function resetAutoPlay() {
+        if (isAutoPlaying) {
+            stopAutoPlay();
+            startAutoPlay();
+        }
+    }
+
+    // Eventos de botones
+    btnPrev.addEventListener('click', prevSlide);
+    btnNext.addEventListener('click', nextSlide);
+
+    // Touch events para swipe
     let touchStartX = 0;
-    track.addEventListener(
-        'touchstart',
-        (event) => {
-            touchStartX = event.touches[0].clientX;
-        },
-        { passive: true }
-    );
+    let touchEndX = 0;
+    
+    track.addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+    }, { passive: true });
+    
     track.addEventListener('touchend', (event) => {
-        if (!event.changedTouches || event.changedTouches.length === 0) return;
-        const diff = touchStartX - event.changedTouches[0].clientX;
+        touchEndX = event.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
         if (Math.abs(diff) > 50) {
-            goTo(current + (diff > 0 ? 1 : -1));
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
         }
     });
 
-    let resizeFrame = 0;
-    let lastPerView = perView;
-    window.addEventListener('resize', () => {
-        cancelAnimationFrame(resizeFrame);
-        resizeFrame = requestAnimationFrame(() => {
-            perView = getPerView();
-            if (perView !== lastPerView) {
-                lastPerView = perView;
-                current = 0;
-                buildDots();
-            }
-            goTo(current);
+    // Pausar autoplay al hover
+    const carouselWrapper = document.querySelector('.carousel-wrapper');
+    if (carouselWrapper) {
+        carouselWrapper.addEventListener('mouseenter', () => {
+            if (isAutoPlaying) stopAutoPlay();
         });
+        carouselWrapper.addEventListener('mouseleave', () => {
+            if (isAutoPlaying) startAutoPlay();
+        });
+    }
+
+    // Resize handler
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            const newPerView = getPerView();
+            if (newPerView !== perView) {
+                perView = newPerView;
+                calculateDimensions();
+                goTo(0);
+                buildDots();
+            } else {
+                calculateDimensions();
+                goTo(current);
+            }
+        }, 150);
     });
 
-    buildDots();
-    goTo(0);
+    // Inicializar carrusel después de que las imágenes carguen
+    function initCarousel() {
+        calculateDimensions();
+        buildDots();
+        goTo(0);
+        startAutoPlay();
+    }
+    
+    // Esperar a que las imágenes estén listas
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCarousel);
+    } else {
+        initCarousel();
+    }
 })();
 
 /* ── Lightbox ── */
