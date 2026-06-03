@@ -616,3 +616,77 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
 }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
 revealEls.forEach((el) => revealObserver.observe(el));
+/* ── FIX DE EMERGENCIA PARA FORZAR EL CARRUSEL ── */
+(function forceCarouselFix() {
+    // Esperar a que todo cargue
+    window.addEventListener('load', function() {
+        const track = document.querySelector('.carousel-track');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const trackContainer = document.querySelector('.carousel-track-container');
+        
+        if (!track || slides.length === 0) {
+            console.error('❌ No se encontró el carrusel');
+            return;
+        }
+        
+        console.log(`✅ Forzando carrusel con ${slides.length} imágenes`);
+        
+        // Forzar estilos inline
+        track.style.display = 'flex';
+        track.style.flexDirection = 'row';
+        track.style.transition = 'transform 0.5s ease-in-out';
+        track.style.width = 'auto';
+        track.style.minWidth = '100%';
+        
+        if (trackContainer) {
+            trackContainer.style.overflow = 'visible';
+            trackContainer.style.width = '100%';
+        }
+        
+        // Forzar que cada slide sea visible
+        slides.forEach((slide, index) => {
+            slide.style.display = 'block';
+            slide.style.visibility = 'visible';
+            slide.style.opacity = '1';
+            slide.style.flex = '0 0 auto';
+            console.log(`✅ Slide ${index + 1} forzado`);
+        });
+        
+        // Calcular ancho total y aplicar estilos específicos
+        function applyStyles() {
+            const containerWidth = trackContainer ? trackContainer.clientWidth : window.innerWidth;
+            let slideWidth;
+            
+            if (window.innerWidth <= 768) {
+                slideWidth = containerWidth - 40;
+                slides.forEach(slide => {
+                    slide.style.flex = `0 0 ${slideWidth}px`;
+                    slide.style.minWidth = `${slideWidth}px`;
+                });
+            } else if (window.innerWidth <= 992) {
+                slideWidth = (containerWidth - 40) / 2;
+                slides.forEach(slide => {
+                    slide.style.flex = `0 0 ${slideWidth}px`;
+                    slide.style.minWidth = `${slideWidth}px`;
+                });
+            } else {
+                slideWidth = (containerWidth - 60) / 3;
+                slides.forEach(slide => {
+                    slide.style.flex = `0 0 ${slideWidth}px`;
+                    slide.style.minWidth = `${slideWidth}px`;
+                });
+            }
+            
+            console.log(`📐 Ancho de slide: ${slideWidth}px, Pantalla: ${window.innerWidth}px`);
+        }
+        
+        applyStyles();
+        window.addEventListener('resize', applyStyles);
+        
+        // Pequeño timeout para asegurar
+        setTimeout(() => {
+            applyStyles();
+            console.log('🔄 Re-aplicando estilos después de timeout');
+        }, 100);
+    });
+})();
