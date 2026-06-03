@@ -1665,3 +1665,64 @@ html, body {
     height: auto !important;
     display: block !important;
 }
+/* =========================================
+   FIX DE EMERGENCIA PARA EL CARRUSEL
+   ========================================= */
+
+/* Forzar que el carrusel muestre TODAS las imágenes */
+.carousel-wrapper {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+}
+
+.carousel-track-container {
+    overflow: visible !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.carousel-track {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 20px !important;
+    transition: transform 0.5s ease-in-out !important;
+    width: auto !important;
+    min-width: 100% !important;
+}
+
+.carousel-slide {
+    flex: 0 0 calc(33.333% - 14px) !important;
+    min-width: 200px !important;
+    max-width: 400px !important;
+    position: relative !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.carousel-slide img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: cover !important;
+    border-radius: 18px !important;
+}
+
+/* En móvil: una imagen por slide */
+@media (max-width: 768px) {
+    .carousel-slide {
+        flex: 0 0 calc(100% - 20px) !important;
+        min-width: 280px !important;
+        max-width: 100% !important;
+    }
+}
+
+/* En tablet: dos imágenes por slide */
+@media (min-width: 769px) and (max-width: 992px) {
+    .carousel-slide {
+        flex: 0 0 calc(50% - 10px) !important;
+        min-width: 250px !important;
+    }
+}
