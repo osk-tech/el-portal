@@ -1323,3 +1323,55 @@ footer {
         align-self: stretch;
     }
 }
+/* =========================================
+   FIX DEFINITIVO - IMÁGENES COMPLETAS SIN CORTES
+   ========================================= */
+
+.carousel-slide {
+    flex: 0 0 auto !important;
+    width: calc(33.333% - 16px) !important;
+    min-width: 280px !important;
+    height: auto !important;
+    min-height: 280px !important;
+    max-height: 380px !important;
+}
+
+.carousel-slide img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 380px !important;
+    min-height: 260px !important;
+    object-fit: contain !important;
+    background-color: #E7E1D4 !important;
+    display: block !important;
+}
+
+/* Ajustes para móvil */
+@media (max-width: 768px) {
+    .carousel-slide {
+        width: calc(100% - 20px) !important;
+        min-width: 280px !important;
+        max-height: 320px !important;
+    }
+    
+    .carousel-slide img {
+        max-height: 320px !important;
+        min-height: 240px !important;
+        object-fit: contain !important;
+    }
+}
+
+/* Para imágenes verticales (portrait) */
+.carousel-slide img[data-orientation="portrait"],
+.carousel-slide img.portrait {
+    max-height: 450px !important;
+    width: auto !important;
+    margin: 0 auto !important;
+}
+
+@media (max-width: 768px) {
+    .carousel-slide img[data-orientation="portrait"],
+    .carousel-slide img.portrait {
+        max-height: 380px !important;
+    }
+}
