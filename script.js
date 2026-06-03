@@ -602,3 +602,23 @@ window.addEventListener('load', function() {
         console.log('🔄 Resize forzado después de carga completa');
     }, 100);
 });
+/* ── FIX PARA ALTURA DE IMÁGENES ── */
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        const slides = document.querySelectorAll('.carousel-slide');
+        const images = document.querySelectorAll('.carousel-slide img');
+        
+        slides.forEach(slide => {
+            slide.style.height = 'auto';
+            slide.style.maxHeight = '380px';
+        });
+        
+        images.forEach(img => {
+            img.style.height = 'auto';
+            img.style.maxHeight = '360px';
+            img.style.objectFit = 'contain';
+        });
+        
+        console.log('✅ Fix de altura aplicado a ' + images.length + ' imágenes');
+    }, 100);
+});
