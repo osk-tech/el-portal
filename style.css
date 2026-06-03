@@ -1641,3 +1641,27 @@ html, body {
 * {
     max-width: 100%;
 }
+/* FIX IMPORTANTE PARA EL CARRUSEL */
+.carousel-track-container {
+    overflow: hidden !important;
+    width: 100% !important;
+}
+
+.carousel-track {
+    display: flex !important;
+    gap: 22px !important;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
+    will-change: transform !important;
+}
+
+.carousel-slide {
+    flex-shrink: 0 !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+}
+
+.carousel-slide img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+}
