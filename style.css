@@ -1617,3 +1617,27 @@ footer {
 .carousel-track {
     align-items: center !important;
 }
+/* FIX FINAL - Elimina espacio blanco en responsive */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden !important;
+}
+
+.carousel-wrapper,
+.carousel-track-container,
+.carousel-track {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+.carousel-slide img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+}
+
+/* Elimina cualquier espacio blanco de elementos */
+* {
+    max-width: 100%;
+}
