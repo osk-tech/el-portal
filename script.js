@@ -180,7 +180,7 @@ if (menuToggle && navLinks && navBackdrop) {
     }
 })();
 
-/* ── Carrusel de Galería ── */
+/* ── Carrusel de Galería - COMPLETAMENTE CORREGIDO ── */
 (function () {
     const track = document.querySelector('.carousel-track');
     const slides = Array.from(document.querySelectorAll('.carousel-slide'));
@@ -188,82 +188,226 @@ if (menuToggle && navLinks && navBackdrop) {
     const btnNext = document.querySelector('.carousel-btn--next');
     const dotsWrap = document.querySelector('.carousel-dots');
 
+    // Verificar que existan todos los elementos necesarios
     if (!track || !btnPrev || !btnNext || !dotsWrap || slides.length === 0) {
+        console.error('❌ Carrusel: faltan elementos necesarios');
         return;
     }
 
-    let perView = getPerView();
-    let current = 0;
-    const total = slides.length;
+    console.log(`✅ Carrusel iniciado con ${slides.length} imágenes`);
 
-    function getPerView() {
-        return window.innerWidth <= 768 ? 1 : window.innerWidth <= 1024 ? 2 : 3;
+    let currentIndex = 0;
+    let slideWidth = 0;
+    let gap = 0;
+
+    // Obtener cuántas imágenes mostrar según el ancho de pantalla
+    function getSlidesPerView() {
+        const width = window.innerWidth;
+        if (width <= 768) return 1;
+        if (width <= 1024) return 2;
+        return 3;
     }
 
-    function buildDots() {
-        dotsWrap.innerHTML = '';
-        const count = total - perView + 1;
+    let slidesPerView = getSlidesPerView();
 
-        for (let i = 0; i < count; i += 1) {
-            const btn = document.createElement('button');
-            btn.className = `carousel-dot${i === current ? ' active' : ''}`;
-            btn.setAttribute('aria-label', `Ir a imagen ${i + 1}`);
-            btn.addEventListener('click', () => goTo(i));
-            dotsWrap.appendChild(btn);
-        }
-    }
-
-    function updateDots() {
-        document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
-            dot.classList.toggle('active', i === current);
+    // Calcular el ancho de cada slide
+    function calculateSlideWidth() {
+        const trackContainer = document.querySelector('.carousel-track-container');
+        if (!trackContainer) return 0;
+        
+        const containerWidth = trackContainer.clientWidth;
+        const computedStyle = getComputedStyle(track);
+        gap = parseFloat(computedStyle.gap) || 20;
+        
+        slideWidth = (containerWidth - (gap * (slidesPerView - 1))) / slidesPerView;
+        
+        // Aplicar ancho a cada slide
+        slides.forEach(slide => {
+            slide.style.flex = `0 0 ${slideWidth}px`;
+            slide.style.minWidth = `${slideWidth}px`;
         });
+        
+        console.log(`📐 slidesPerView: ${slidesPerView}, slideWidth: ${slideWidth}px, gap: ${gap}px`);
+        return slideWidth;
     }
 
+    // Mover a un índice específico
     function goTo(index) {
-        const maxIndex = total - perView;
-        current = Math.max(0, Math.min(index, maxIndex));
-        const gap = parseFloat(getComputedStyle(track).gap || 0);
-        const slideWidth = slides[0].getBoundingClientRect().width + gap;
-        track.style.transform = `translate3d(-${current * slideWidth}px, 0, 0)`;
+        if (!track || slides.length === 0) return;
+        
+        const maxIndex = Math.max(0, slides.length - slidesPerView);
+        let newIndex = index;
+        
+        if (newIndex < 0) newIndex = 0;
+        if (newIndex > maxIndex) newIndex = maxIndex;
+        
+        currentIndex = newIndex;
+        
+        const translateX = -(currentIndex * (slideWidth + gap));
+        track.style.transform = `translate3d(${translateX}px, 0, 0)`;
+        
         updateDots();
+        updateButtons();
+        
+        console.log(`🎯 Moviendo a índice ${currentIndex}, translateX: ${translateX}px`);
     }
 
-    btnPrev.addEventListener('click', () => goTo(current - 1));
-    btnNext.addEventListener('click', () => goTo(current + 1));
+    // Siguiente slide
+    function nextSlide() {
+        const maxIndex = Math.max(0, slides.length - slidesPerView);
+        if (currentIndex < maxIndex) {
+            goTo(currentIndex + 1);
+        } else if (currentIndex === maxIndex && maxIndex > 0) {
+            goTo(0);
+        }
+    }
 
+    // Anterior slide
+    function prevSlide() {
+        if (currentIndex > 0) {
+            goTo(currentIndex - 1);
+        } else if (currentIndex === 0 && slides.length > slidesPerView) {
+            goTo(Math.max(0, slides.length - slidesPerView));
+        }
+    }
+
+    // Crear los dots de navegación
+    function buildDots() {
+        if (!dotsWrap) return;
+        
+        dotsWrap.innerHTML = '';
+        const totalDots = Math.ceil(slides.length / slidesPerView);
+        
+        for (let i = 0; i < totalDots; i++) {
+            const dot = document.createElement('button');
+            dot.classList.add('carousel-dot');
+            if (i === Math.floor(currentIndex / slidesPerView)) {
+                dot.classList.add('active');
+            }
+            dot.setAttribute('aria-label', `Ir a grupo ${i + 1}`);
+            dot.addEventListener('click', () => {
+                goTo(i * slidesPerView);
+            });
+            dotsWrap.appendChild(dot);
+        }
+        
+        console.log(`🎯 Creados ${totalDots} dots para ${slides.length} slides`);
+    }
+
+    // Actualizar los dots activos
+    function updateDots() {
+        const dots = document.querySelectorAll('.carousel-dot');
+        const activeDotIndex = Math.floor(currentIndex / slidesPerView);
+        
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === activeDotIndex);
+        });
+    }
+
+    // Actualizar estado de los botones
+    function updateButtons() {
+        const maxIndex = Math.max(0, slides.length - slidesPerView);
+        
+        btnPrev.disabled = currentIndex === 0;
+        btnPrev.style.opacity = currentIndex === 0 ? '0.4' : '1';
+        btnPrev.style.cursor = currentIndex === 0 ? 'not-allowed' : 'pointer';
+        
+        btnNext.disabled = currentIndex >= maxIndex;
+        btnNext.style.opacity = currentIndex >= maxIndex ? '0.4' : '1';
+        btnNext.style.cursor = currentIndex >= maxIndex ? 'not-allowed' : 'pointer';
+    }
+
+    // Eventos de los botones
+    btnPrev.addEventListener('click', prevSlide);
+    btnNext.addEventListener('click', nextSlide);
+
+    // Swipe con touch para móvil
     let touchStartX = 0;
-    track.addEventListener(
-        'touchstart',
-        (event) => {
-            touchStartX = event.touches[0].clientX;
-        },
-        { passive: true }
-    );
-    track.addEventListener('touchend', (event) => {
-        if (!event.changedTouches || event.changedTouches.length === 0) return;
-        const diff = touchStartX - event.changedTouches[0].clientX;
+    let touchEndX = 0;
+    
+    track.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+    
+    track.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
         if (Math.abs(diff) > 50) {
-            goTo(current + (diff > 0 ? 1 : -1));
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
         }
     });
 
-    let resizeFrame = 0;
-    let lastPerView = perView;
-    window.addEventListener('resize', () => {
-        cancelAnimationFrame(resizeFrame);
-        resizeFrame = requestAnimationFrame(() => {
-            perView = getPerView();
-            if (perView !== lastPerView) {
-                lastPerView = perView;
-                current = 0;
-                buildDots();
+    // Pausar autoplay al hacer hover
+    let autoPlayInterval = null;
+    let isAutoPlaying = true;
+    
+    function startAutoPlay() {
+        if (autoPlayInterval) clearInterval(autoPlayInterval);
+        autoPlayInterval = setInterval(() => {
+            if (isAutoPlaying) {
+                const maxIndex = Math.max(0, slides.length - slidesPerView);
+                if (currentIndex < maxIndex) {
+                    goTo(currentIndex + 1);
+                } else {
+                    goTo(0);
+                }
             }
-            goTo(current);
+        }, 5000);
+    }
+    
+    function stopAutoPlay() {
+        if (autoPlayInterval) {
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = null;
+        }
+    }
+    
+    const carouselWrapper = document.querySelector('.carousel-wrapper');
+    if (carouselWrapper) {
+        carouselWrapper.addEventListener('mouseenter', () => {
+            if (isAutoPlaying) stopAutoPlay();
         });
+        carouselWrapper.addEventListener('mouseleave', () => {
+            if (isAutoPlaying) startAutoPlay();
+        });
+    }
+
+    // Recalcular al cambiar el tamaño de la ventana
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            const newPerView = getSlidesPerView();
+            if (newPerView !== slidesPerView) {
+                slidesPerView = newPerView;
+                calculateSlideWidth();
+                buildDots();
+                goTo(0);
+            } else {
+                calculateSlideWidth();
+                goTo(currentIndex);
+            }
+        }, 150);
     });
 
-    buildDots();
-    goTo(0);
+    // Inicializar el carrusel
+    function initCarousel() {
+        calculateSlideWidth();
+        buildDots();
+        goTo(0);
+        startAutoPlay();
+    }
+    
+    // Esperar a que el DOM esté listo
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCarousel);
+    } else {
+        initCarousel();
+    }
 })();
 
 /* ── Lightbox ── */
@@ -449,3 +593,12 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
 }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
 revealEls.forEach((el) => revealObserver.observe(el));
+
+/* ── Fix adicional para asegurar que el carrusel se muestre ── */
+window.addEventListener('load', function() {
+    // Forzar un resize para recalcular el carrusel
+    setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+        console.log('🔄 Resize forzado después de carga completa');
+    }, 100);
+});
