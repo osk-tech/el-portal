@@ -49,7 +49,124 @@ function buildWaLink(key) {
 document.querySelectorAll('[data-whatsapp]').forEach((el) => {
     el.setAttribute('href', buildWaLink(el.dataset.whatsapp));
 });
-
+/* ── FUNCIÓN PARA MOSTRAR IMÁGENES COMPLETAS EN EL CARRUSEL ── */
+(function fixCarouselImages() {
+    
+    // Función para ajustar cada imagen individualmente
+    function adjustImageSize(imgElement, slideElement) {
+        // Esperar a que la imagen se cargue
+        imgElement.addEventListener('load', function() {
+            const imgWidth = this.naturalWidth;
+            const imgHeight = this.naturalHeight;
+            const isPortrait = imgHeight > imgWidth;
+            const isLandscape = imgWidth > imgHeight;
+            const isSquare = imgWidth === imgHeight;
+            
+            console.log(`📸 Imagen: ${imgWidth}x${imgHeight}, ${isPortrait ? 'Vertical' : isLandscape ? 'Horizontal' : 'Cuadrada'}`);
+            
+            // Remover estilos inline previos
+            slideElement.style.removeProperty('height');
+            slideElement.style.removeProperty('max-height');
+            imgElement.style.removeProperty('height');
+            imgElement.style.removeProperty('width');
+            imgElement.style.removeProperty('max-height');
+            imgElement.style.removeProperty('object-fit');
+            
+            // Aplicar estilos según orientación
+            if (isPortrait) {
+                // Imagen vertical - se muestra completa con altura limitada
+                slideElement.style.height = 'auto';
+                slideElement.style.maxHeight = '450px';
+                imgElement.style.height = 'auto';
+                imgElement.style.maxHeight = '420px';
+                imgElement.style.width = 'auto';
+                imgElement.style.maxWidth = '100%';
+                imgElement.style.objectFit = 'contain';
+                imgElement.style.margin = '0 auto';
+                imgElement.style.display = 'block';
+            } 
+            else if (isLandscape) {
+                // Imagen horizontal - ocupa todo el ancho
+                slideElement.style.height = 'auto';
+                slideElement.style.maxHeight = '380px';
+                imgElement.style.width = '100%';
+                imgElement.style.height = 'auto';
+                imgElement.style.maxHeight = '360px';
+                imgElement.style.objectFit = 'contain';
+                imgElement.style.backgroundColor = '#E7E1D4';
+            } 
+            else {
+                // Imagen cuadrada
+                slideElement.style.height = 'auto';
+                slideElement.style.maxHeight = '380px';
+                imgElement.style.width = '100%';
+                imgElement.style.height = 'auto';
+                imgElement.style.maxHeight = '360px';
+                imgElement.style.objectFit = 'contain';
+            }
+            
+            // Asegurar que el slide tenga fondo consistente
+            slideElement.style.backgroundColor = '#E7E1D4';
+            slideElement.style.display = 'flex';
+            slideElement.style.alignItems = 'center';
+            slideElement.style.justifyContent = 'center';
+            
+        }, { once: true });
+        
+        // Si la imagen ya está cargada
+        if (imgElement.complete) {
+            imgElement.dispatchEvent(new Event('load'));
+        }
+    }
+    
+    // Función principal
+    function initImageAdjustment() {
+        const slides = document.querySelectorAll('.carousel-slide');
+        
+        if (slides.length === 0) {
+            console.log('⏳ Esperando carrusel...');
+            setTimeout(initImageAdjustment, 500);
+            return;
+        }
+        
+        console.log(`🖼️ Ajustando ${slides.length} imágenes del carrusel`);
+        
+        slides.forEach((slide, index) => {
+            const img = slide.querySelector('img');
+            if (img) {
+                // Aplicar estilos base al slide
+                slide.style.display = 'flex';
+                slide.style.alignItems = 'center';
+                slide.style.justifyContent = 'center';
+                slide.style.backgroundColor = '#E7E1D4';
+                slide.style.overflow = 'hidden';
+                
+                // Ajustar la imagen
+                adjustImageSize(img, slide);
+            }
+        });
+    }
+    
+    // Ejecutar cuando el DOM esté listo
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initImageAdjustment);
+    } else {
+        initImageAdjustment();
+    }
+    
+    // También ejecutar después de que todo cargue completamente
+    window.addEventListener('load', function() {
+        setTimeout(initImageAdjustment, 200);
+    });
+    
+    // Reajustar cuando cambie el tamaño de la pantalla
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(initImageAdjustment, 250);
+    });
+    
+})();
 /* ── Menú Móvil ── */
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
