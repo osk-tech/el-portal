@@ -1,6 +1,6 @@
 /* =========================================
    Estilos Base: El Portal (Rústico & Lujo)
-   Versión: 2.0 - Corregida (Sin cortes de imágenes)
+   Versión: 3.0 - COMPLETAMENTE CORREGIDA
    ========================================= */
 
 :root {
@@ -30,6 +30,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 @media (prefers-reduced-motion: no-preference) {
     html {
         scroll-behavior: smooth;
@@ -42,6 +47,7 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
   overflow-x: hidden;
+  width: 100%;
 }
 
 img {
@@ -355,7 +361,6 @@ p {
     color: var(--bg-color);
 }
 
-/* Hero Autoplay Toggle Button */
 .hero-autoplay-btn {
     width: 40px;
     height: 40px;
@@ -478,7 +483,7 @@ p {
 }
 
 /* =========================================
-   Botón de WhatsApp (Estilo Elegante)
+   Botón de WhatsApp
    ========================================= */
 .btn-whatsapp {
   display: inline-block;
@@ -544,8 +549,7 @@ p {
     content: '';
     position: absolute;
     inset: 0;
-    background:
-        linear-gradient(180deg, rgba(18, 24, 20, 0.06) 0%, rgba(18, 24, 20, 0.18) 32%, rgba(18, 24, 20, 0.82) 100%);
+    background: linear-gradient(180deg, rgba(18, 24, 20, 0.06) 0%, rgba(18, 24, 20, 0.18) 32%, rgba(18, 24, 20, 0.82) 100%);
     z-index: 0;
 }
 
@@ -560,7 +564,6 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    gap: 0;
     min-height: 100%;
 }
 
@@ -580,7 +583,6 @@ p {
 .service-card p {
     font-size: 1rem;
     color: rgba(250, 250, 250, 0.92);
-    opacity: 1;
     margin-bottom: 0;
     max-width: 28ch;
 }
@@ -733,7 +735,6 @@ p {
     color: var(--bg-color);
 }
 
-/* Room photo thumbnails */
 .room-photo-count {
     position: absolute;
     bottom: 12px;
@@ -789,7 +790,7 @@ p {
 }
 
 /* =========================================
-   Galería — Carrusel (CORREGIDO - SIN CORTES)
+   GALERÍA - CARRUSEL (VERSIÓN DEFINITIVA)
    ========================================= */
 .gallery {
     padding: var(--section-space) 0;
@@ -802,31 +803,27 @@ p {
 }
 
 .carousel-wrapper {
-    --carousel-gap: clamp(14px, 1.8vw, 22px);
     position: relative;
-    display: flex;
-    align-items: center;
+    width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 clamp(20px, 5vw, 72px);
+    padding: 0 60px;
 }
 
 .carousel-track-container {
     overflow: hidden;
     width: 100%;
-    touch-action: pan-y pinch-zoom;
 }
 
 .carousel-track {
     display: flex;
-    gap: var(--carousel-gap);
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    gap: 24px;
+    transition: transform 0.5s ease-in-out;
     will-change: transform;
 }
 
-/* Contenedor que NO corta la imagen */
 .carousel-slide {
-    flex: 0 0 calc((100% - (var(--carousel-gap) * 2)) / 3);
+    flex: 0 0 calc(33.333% - 16px);
     position: relative;
     cursor: pointer;
     border-radius: 18px;
@@ -835,7 +832,6 @@ p {
     overflow: hidden;
 }
 
-/* ✅ CORREGIDO: La imagen NO se corta NUNCA */
 .carousel-slide img {
     width: 100%;
     height: auto;
@@ -843,13 +839,13 @@ p {
     transition: transform 0.5s ease;
 }
 
+.carousel-slide:hover img {
+    transform: scale(1.05);
+}
+
 .carousel-slide:focus-visible {
     outline: 3px solid var(--accent-gold);
     outline-offset: 3px;
-}
-
-.carousel-slide:hover img {
-    transform: scale(1.06);
 }
 
 .gallery-overlay {
@@ -857,161 +853,116 @@ p {
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(46,64,53,0.75) 0%, transparent 70%);
-    display: flex;
-    align-items: flex-end;
-    padding: 24px;
-    opacity: 1;
-    transition: background 0.4s ease;
+    background: linear-gradient(to top, rgba(46,64,53,0.8), transparent);
+    padding: 20px;
     pointer-events: none;
-}
-
-.carousel-slide:hover .gallery-overlay {
-    background: linear-gradient(to top, rgba(46,64,53,0.9) 0%, transparent 75%);
 }
 
 .gallery-overlay span {
     color: var(--bg-color);
     font-family: var(--font-heading);
-    font-size: 1.05rem;
-    letter-spacing: 1.5px;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    font-size: 1rem;
+    letter-spacing: 1px;
 }
 
 .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
     z-index: 10;
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255,255,255,0.3);
-    color: var(--bg-color);
-    font-size: 2.8rem;
-    line-height: 1;
-    width: 56px;
-    height: 56px;
+    transition: all 0.3s ease;
+    font-size: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease;
-    border-radius: 50%;
-}
-
-.carousel-btn:focus-visible,
-.carousel-dot:focus-visible {
-    outline: 3px solid var(--accent-gold);
-    outline-offset: 3px;
 }
 
 .carousel-btn:hover {
     background: var(--accent-gold);
-    border-color: var(--accent-gold);
 }
 
-.carousel-btn--prev { left: 16px; }
-.carousel-btn--next { right: 16px; }
+.carousel-btn--prev {
+    left: 10px;
+}
+
+.carousel-btn--next {
+    right: 10px;
+}
 
 .carousel-dots {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 28px;
+    gap: 12px;
+    margin-top: 32px;
 }
 
 .carousel-dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    background-color: rgba(46,64,53,0.25);
+    background-color: rgba(46,64,53,0.3);
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
     padding: 0;
 }
 
 .carousel-dot.active {
-    background-color: var(--forest-dark);
-    transform: scale(1.35);
+    background-color: var(--accent-gold);
+    transform: scale(1.2);
 }
 
-/* =========================================
-   RESPONSIVE GALERÍA - SIN CORTES EN MÓVIL
-   ========================================= */
+/* Responsive Galería */
 @media (max-width: 992px) {
     .carousel-slide {
-        flex: 0 0 calc((100% - var(--carousel-gap)) / 2);
+        flex: 0 0 calc(50% - 12px);
     }
 }
 
 @media (max-width: 768px) {
+    .carousel-wrapper {
+        padding: 0 40px;
+    }
+    
     .carousel-slide {
         flex: 0 0 100%;
     }
     
-    /* ✅ En móvil: imagen COMPLETA, sin recortes */
-    .carousel-slide img {
-        width: 100%;
-        height: auto;
-        min-height: auto;
-        max-height: none;
-        object-fit: contain;
-        background-color: #E7E1D4;
-    }
-    
-    .carousel-wrapper {
-        --carousel-gap: 12px;
-        padding: 0 18px;
+    .carousel-track {
+        gap: 16px;
     }
     
     .carousel-btn {
-        width: 46px;
-        height: 46px;
-        font-size: 2.2rem;
-    }
-    
-    .carousel-btn--prev {
-        left: 2px;
-    }
-    
-    .carousel-btn--next {
-        right: 2px;
+        width: 36px;
+        height: 36px;
+        font-size: 1.5rem;
     }
     
     .gallery-overlay {
-        padding: 18px;
+        padding: 12px;
+    }
+    
+    .gallery-overlay span {
+        font-size: 0.85rem;
     }
 }
 
 @media (max-width: 576px) {
+    .carousel-wrapper {
+        padding: 0 30px;
+    }
+    
     .carousel-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 1.8rem;
-    }
-    
-    .gallery-overlay {
-        padding: 14px;
-    }
-    
-    .gallery-overlay span {
-        font-size: 0.9rem;
-    }
-}
-
-/* Soporte para imágenes portrait (verticales) - se muestran completas */
-.carousel-slide img[data-orientation="portrait"] {
-    width: auto;
-    max-width: 100%;
-    height: auto;
-    max-height: 500px;
-    margin: 0 auto;
-}
-
-@media (max-width: 768px) {
-    .carousel-slide img[data-orientation="portrait"] {
-        max-height: 450px;
+        width: 32px;
+        height: 32px;
+        font-size: 1.2rem;
     }
 }
 
@@ -1104,7 +1055,6 @@ p {
     margin-left: 4px;
 }
 
-/* Mapa */
 .contact-map {
     position: relative;
     width: 100%;
@@ -1130,7 +1080,7 @@ p {
 .lightbox {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.92);
+    background: rgba(0, 0, 0, 0.95);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1163,12 +1113,6 @@ p {
     display: block;
     border-radius: var(--border-radius-sm);
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    transform: scale(0.95);
-    transition: transform 0.35s ease;
-}
-
-.lightbox.is-open .lightbox-content img {
-    transform: scale(1);
 }
 
 .lightbox-caption {
@@ -1179,13 +1123,6 @@ p {
     margin: 0;
 }
 
-.lightbox-close:focus-visible,
-.lightbox-prev:focus-visible,
-.lightbox-next:focus-visible {
-    outline: 3px solid var(--accent-gold);
-    outline-offset: 4px;
-}
-
 .lightbox-close,
 .lightbox-prev,
 .lightbox-next {
@@ -1194,9 +1131,8 @@ p {
     border: none;
     color: rgba(255,255,255,0.8);
     cursor: pointer;
-    transition: color 0.2s ease, transform 0.2s ease;
-    line-height: 1;
-    font-family: var(--font-body);
+    transition: color 0.2s ease;
+    font-size: 2rem;
 }
 
 .lightbox-close:hover,
@@ -1215,15 +1151,12 @@ p {
 .lightbox-next {
     top: 50%;
     transform: translateY(-50%);
-    font-size: 4rem;
+    font-size: 3rem;
     padding: 0 20px;
 }
 
 .lightbox-prev { left: 16px; }
 .lightbox-next { right: 16px; }
-
-.lightbox-prev:hover { transform: translateY(-50%) translateX(-3px); }
-.lightbox-next:hover { transform: translateY(-50%) translateX(3px); }
 
 /* =========================================
    Reveal on Scroll
@@ -1238,12 +1171,6 @@ p {
     opacity: 1;
     transform: translateY(0);
 }
-
-/* Stagger para tarjetas en grilla */
-.service-card:nth-child(2).reveal  { transition-delay: 0.12s; }
-.service-card:nth-child(3).reveal  { transition-delay: 0.24s; }
-.room-card:nth-child(2).reveal     { transition-delay: 0.12s; }
-.room-card:nth-child(3).reveal     { transition-delay: 0.24s; }
 
 /* =========================================
    Footer
@@ -1302,10 +1229,6 @@ footer {
         gap: 60px;
     }
 
-    .nav-container {
-        border-radius: 28px;
-    }
-
     .hero-content {
         padding-top: 150px;
     }
@@ -1313,18 +1236,14 @@ footer {
     .rooms-grid {
         grid-template-columns: 1fr 1fr;
     }
+    
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
 }
 
 @media (max-width: 768px) {
-    .nav-container {
-        padding: 14px 18px;
-        border-radius: 22px;
-    }
-
-    .logo {
-        font-size: 0.92rem;
-    }
-
     .logo-img {
         height: 80px;
     }
@@ -1335,16 +1254,10 @@ footer {
 
     .hero-kicker {
         font-size: 0.68rem;
-        letter-spacing: 1.5px;
     }
 
     .hero-content h1 {
         font-size: clamp(2.9rem, 13vw, 4rem);
-    }
-
-    .hero-content p {
-        font-size: 1rem;
-        line-height: 1.75;
     }
 
     .hero-actions {
@@ -1353,24 +1266,11 @@ footer {
         align-items: stretch;
     }
 
-    .hero-autoplay-btn {
-        align-self: center;
-        width: 36px;
-        height: 36px;
-    }
-
     .hero-actions a {
         width: 100%;
     }
 
-    .btn-whatsapp,
-    .btn-secondary,
-    .btn-reserve {
-        padding: 13px 22px;
-        letter-spacing: 1.5px;
-    }
-
-    .experience-text h2, .services h2 {
+    .experience-text h2, .services h2, .section-title {
         font-size: 2.2rem;
     }
 
@@ -1380,52 +1280,16 @@ footer {
 
     .room-thumbs {
         gap: 8px;
-        padding: 8px 8px 0;
         overflow-x: auto;
         scroll-snap-type: x proximity;
     }
 
     .room-thumb {
         flex: 0 0 84px;
-        scroll-snap-align: start;
-        background-color: #F4F3EE;
-    }
-
-    .room-thumb--single {
-        flex-basis: 100%;
-    }
-
-    .room-image img[data-orientation="portrait"] {
-        height: auto;
-        max-height: clamp(280px, 78vw, 420px);
-        object-fit: contain;
-        background-color: #F4F3EE;
-        padding: 10px;
-    }
-
-    .room-thumb img[data-orientation="portrait"] {
-        object-fit: contain;
-        background-color: #F4F3EE;
-        padding: 6px;
-    }
-
-    .hero-slide[data-orientation="portrait"] {
-        object-position: center 38%;
     }
 
     .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 60px;
-    }
-
-    .section-title {
-        font-size: 2.2rem;
-    }
-
-    .footer-content {
-        flex-direction: column;
-        gap: 30px;
-        text-align: center;
+        gap: 40px;
     }
 }
 
@@ -1434,413 +1298,28 @@ footer {
         --section-space: 72px;
     }
 
-    .nav-container {
-        padding: 12px 14px;
-        gap: 12px;
-    }
-
-    .logo {
-        max-width: calc(100% - 48px);
-    }
-
     .logo-img {
         height: 68px;
-    }
-
-    .nav-links {
-        width: min(88vw, 300px);
-        padding: 88px 22px 28px;
-        gap: 28px;
-        align-items: flex-start;
-    }
-
-    .nav-links a {
-        width: 100%;
-    }
-
-    .hero-content {
-        padding: 120px 0 44px;
-    }
-
-    .hero-kicker {
-        width: min(100%, 320px);
-        padding: 9px 14px;
-        font-size: 0.62rem;
-        letter-spacing: 1.2px;
     }
 
     .hero-content h1 {
         font-size: clamp(2.35rem, 14vw, 3.3rem);
     }
 
-    .hero-content p {
-        font-size: 0.96rem;
-    }
-
-    .experience-grid,
-    .contact-grid {
-        gap: 40px;
-    }
-
-    .experience-image::before {
-        top: -12px;
-        right: -12px;
-    }
-
     .services-wrapper {
         grid-template-columns: 1fr;
-        gap: 20px;
     }
 
     .service-card {
         min-height: 360px;
     }
 
-    .service-card-content {
-        padding: 24px 22px 22px;
-    }
-
     .room-image img {
         height: 220px;
-    }
-
-    .room-image img[data-orientation="portrait"] {
-        max-height: clamp(240px, 82vw, 380px);
-        padding: 8px;
-    }
-
-    .room-thumb {
-        flex-basis: 78px;
-    }
-
-    .room-info {
-        padding: 24px 20px;
     }
 
     .btn-reserve {
         width: 100%;
         align-self: stretch;
-    }
-
-    .contact-details {
-        gap: 18px;
-    }
-
-    .contact-item {
-        gap: 12px;
-    }
-
-    .lightbox {
-        padding: 16px;
-    }
-
-    .lightbox-content {
-        max-width: 100%;
-        max-height: 100dvh;
-        gap: 12px;
-    }
-
-    .lightbox-content img {
-        max-height: min(70dvh, 520px);
-    }
-
-    .lightbox-close {
-        top: 12px;
-        right: 16px;
-        font-size: 2rem;
-    }
-
-    .lightbox-prev,
-    .lightbox-next {
-        font-size: 2.6rem;
-        padding: 0 10px;
-    }
-}
-
-/* =========================================
-   Utilidades adicionales
-   ========================================= */
-
-/* =========================================
-   ¡CORRECCIÓN DE EMERGENCIA - SIN CORTES!
-   ========================================= */
-
-/* Esto fuerza a que TODAS las imágenes del carrusel se vean completas */
-.carousel-slide,
-.carousel-slide *,
-.carousel-slide img {
-    overflow: visible !important;
-}
-
-.carousel-slide img {
-    width: auto !important;
-    max-width: 100% !important;
-    height: auto !important;
-    max-height: 400px !important;
-    min-height: auto !important;
-    object-fit: contain !important;
-    aspect-ratio: auto !important;
-    display: block !important;
-    margin: 0 auto !important;
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    transform: none !important;
-}
-
-/* En móvil */
-@media (max-width: 768px) {
-    .carousel-slide img {
-        max-height: 320px !important;
-        width: auto !important;
-        max-width: 100% !important;
-    }
-}
-
-/* Para imágenes portrait */
-.carousel-slide img[data-orientation="portrait"] {
-    max-height: 450px !important;
-    width: auto !important;
-}
-
-@media (max-width: 768px) {
-    .carousel-slide img[data-orientation="portrait"] {
-        max-height: 380px !important;
-    }
-}
-
-/* Elimina cualquier contenedor que esté cortando */
-.carousel-track-container {
-    overflow: visible !important;
-}
-
-.carousel-track {
-    align-items: center !important;
-}
-/* FIX FINAL - Elimina espacio blanco en responsive */
-html, body {
-    max-width: 100%;
-    overflow-x: hidden !important;
-}
-
-.carousel-wrapper,
-.carousel-track-container,
-.carousel-track {
-    max-width: 100% !important;
-    overflow-x: hidden !important;
-}
-
-.carousel-slide img {
-    width: 100% !important;
-    height: auto !important;
-    max-width: 100% !important;
-    object-fit: contain !important;
-}
-
-/* Elimina cualquier espacio blanco de elementos */
-* {
-    max-width: 100%;
-}
-/* FIX IMPORTANTE PARA EL CARRUSEL */
-.carousel-track-container {
-    overflow: hidden !important;
-    width: 100% !important;
-}
-
-.carousel-track {
-    display: flex !important;
-    gap: 22px !important;
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
-    will-change: transform !important;
-}
-
-.carousel-slide {
-    flex-shrink: 0 !important;
-    border-radius: 18px !important;
-    overflow: hidden !important;
-}
-
-.carousel-slide img {
-    width: 100% !important;
-    height: auto !important;
-    display: block !important;
-}
-/* =========================================
-   FIX DE EMERGENCIA PARA EL CARRUSEL
-   ========================================= */
-
-/* Forzar que el carrusel muestre TODAS las imágenes */
-.carousel-wrapper {
-    position: relative !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: visible !important;
-}
-
-.carousel-track-container {
-    overflow: visible !important;
-    width: 100% !important;
-    max-width: 100% !important;
-}
-
-.carousel-track {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 20px !important;
-    transition: transform 0.5s ease-in-out !important;
-    width: auto !important;
-    min-width: 100% !important;
-}
-
-.carousel-slide {
-    flex: 0 0 calc(33.333% - 14px) !important;
-    min-width: 200px !important;
-    max-width: 400px !important;
-    position: relative !important;
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
-.carousel-slide img {
-    width: 100% !important;
-    height: auto !important;
-    display: block !important;
-    object-fit: cover !important;
-    border-radius: 18px !important;
-}
-
-/* En móvil: una imagen por slide */
-@media (max-width: 768px) {
-    .carousel-slide {
-        flex: 0 0 calc(100% - 20px) !important;
-        min-width: 280px !important;
-        max-width: 100% !important;
-    }
-}
-
-/* En tablet: dos imágenes por slide */
-@media (min-width: 769px) and (max-width: 992px) {
-    .carousel-slide {
-        flex: 0 0 calc(50% - 10px) !important;
-        min-width: 250px !important;
-    }
-}
-/* =========================================
-   FIX PARA EL CARRUSEL - IMÁGENES VISIBLES
-   ========================================= */
-
-.carousel-wrapper {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-}
-
-.carousel-track-container {
-    overflow: hidden;
-    width: 100%;
-}
-
-.carousel-track {
-    display: flex;
-    gap: 20px;
-    transition: transform 0.5s ease-in-out;
-    will-change: transform;
-}
-
-.carousel-slide {
-    flex-shrink: 0;
-    border-radius: 18px;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.carousel-slide img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.carousel-slide:hover img {
-    transform: scale(1.05);
-}
-
-.gallery-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(46,64,53,0.8), transparent);
-    padding: 20px;
-    pointer-events: none;
-}
-
-.gallery-overlay span {
-    color: white;
-    font-family: var(--font-heading, 'Playfair Display', serif);
-    font-size: 1rem;
-}
-
-/* Botones del carrusel */
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
-    transition: background 0.3s ease;
-}
-
-.carousel-btn:hover {
-    background: var(--accent-gold, #B89947);
-}
-
-.carousel-btn--prev {
-    left: 10px;
-}
-
-.carousel-btn--next {
-    right: 10px;
-}
-
-/* Dots de navegación */
-.carousel-dots {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.carousel-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #ccc;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.carousel-dot.active {
-    background: var(--accent-gold, #B89947);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .carousel-track {
-        gap: 15px;
-    }
-    
-    .carousel-btn {
-        width: 35px;
-        height: 35px;
     }
 }
